@@ -61,14 +61,7 @@ function time_since_commit() {
 }
 
 function rvm_info_for_prompt {
-  if [[ -d ~/.rvm/ ]]; then
-    local ruby_version=$(~/.rvm/bin/rvm-prompt)
-    if [ -n "$ruby_version" ]; then
-      echo "$ruby_version"
-    fi
-  else
-    echo ""
-  fi
+  echo ""
 }
 
 function prompt_powerline_precmd {
@@ -120,7 +113,7 @@ function prompt_powerline_setup {
 
   # check-for-changes can be really slow.
   # You should disable it if you work with large repositories.
-  zstyle ':vcs_info:*:prompt:*' check-for-changes true
+  zstyle ':vcs_info:*:prompt:*' check-for-changes false
 
   # Formats:
   # %b - branchname
@@ -171,9 +164,9 @@ function prompt_powerline_setup {
 
   POWERLINE_LEFT_A="%K{green}%F{white} %~ %k%f%F{green}%K{blue}"$POWERLINE_SEPARATOR
   POWERLINE_LEFT_B="%k%f%F{white}%K{blue} "'${vcs_info_msg_0_}'" %k%f%F{blue}%K{black}"$POWERLINE_SEPARATOR
-  POWERLINE_LEFT_C=" %k%f%F{white}%K{black}"'$(git_time_details)'" %k%f%F{black}"$POWERLINE_SEPARATOR"%f "
+  POWERLINE_LEFT_C=" %k%f%F{white}%K{black}"" %k%f%F{black}"$POWERLINE_SEPARATOR"%f "
 
-  PROMPT=$POWERLINE_LEFT_A$POWERLINE_LEFT_B$POWERLINE_LEFT_C
+  PROMPT=$POWERLINE_LEFT_A$POWERLINE_LEFT_B
   # RPROMPT=$POWERLINE_COLOR_FG_WHITE$POWERLINE_R_SEPARATOR"%f$POWERLINE_COLOR_BG_WHITE $POWERLINE_COLOR_FG_GRAY$powerline_right_b "$POWERLINE_R_SEPARATOR"%f%k$POWERLINE_COLOR_BG_GRAY$POWERLINE_COLOR_FG_WHITE $powerline_right_a %f%k"
   # RPROMPT=$POWERLINE_COLOR_FG_WHITE$POWERLINE_R_SEPARATOR"%f$POWERLINE_COLOR_BG_WHITE $POWERLINE_COLOR_FG_GRAY"'$powerline_right_b'" "$POWERLINE_R_SEPARATOR"%f%k$POWERLINE_COLOR_BG_GRAY$POWERLINE_COLOR_FG_WHITE "'$powerline_right_a'" %f%k"
   RPROMPT=$POWERLINE_COLOR_FG_WHITE$POWERLINE_R_SEPARATOR"%f$POWERLINE_COLOR_BG_WHITE $POWERLINE_COLOR_FG_GRAY"'$(rvm_info_for_prompt)'" "
