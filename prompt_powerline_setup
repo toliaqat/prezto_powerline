@@ -73,16 +73,14 @@ function rvm_info_for_prompt {
 
 function prompt_powerline_precmd {
   # Check for untracked files or updated submodules since vcs_info doesn't.
-  if [[ ! -z $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then
-    fmt_branch="%b%u%c${__PROMPT_SKWP_COLORS[4]}●%f"
-  else
-    fmt_branch="%b%u%c"
-  fi
+  #if [[ ! -z $(git ls-files --other --exclude-standard 2> /dev/null) ]]; then
+  #  fmt_branch="%b%u%c${__PROMPT_SKWP_COLORS[4]}●%f"
+  #else
+  fmt_branch="%b%u%c"
+  #fi
   zstyle ':vcs_info:*:prompt:*' formats "${fmt_branch}"
-
   vcs_info 'prompt'
   RVM_PRECMD_INFO=$(rvm_info_for_prompt)
-
   # zstyle ':prezto:module:ruby' rvm '%r'
 }
 
